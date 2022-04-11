@@ -34,7 +34,7 @@ const cartReducer = (state, action) => {
       const increaseIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      state.cartItems[increaseIndex].quantity++;
+      state.cartItems[increaseIndex].quantity += 1;
 
       return {
         ...state,

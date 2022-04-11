@@ -10,17 +10,19 @@ import Layout from "./components/Layout";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="shop" element={<Shop />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="success" element={<Success />} />
-        <Route path="canceled" element={<Canceled />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="success" element={<Success />} />
+          <Route path="canceled" element={<Canceled />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
+import { MinusIcon, PlusIcon, XIcon } from "@heroicons/react/outline";
 
 const Cartitem = (props) => {
   const {
@@ -11,11 +11,12 @@ const Cartitem = (props) => {
     description,
     increase,
     decrease,
+    removeProduct,
   } = props;
   const product = { title, imageUrl, price, quantity, id, description };
 
   return (
-    <div className="py-6 mb-12 border-t border-b border-gray-200">
+    <div className="relative py-6 mb-12 border-t border-b border-gray-200">
       <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-3">
         <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
           <div className="flex flex-wrap items-center -mx-4">
@@ -61,6 +62,11 @@ const Cartitem = (props) => {
             ${price}
           </p>
         </div>
+      </div>
+      <div className="absolute right-0 text-pink-300 top-3 hover:text-pink-600">
+        <button type="button" onClick={() => removeProduct(product)}>
+          <XIcon className="w-10 h-10" />
+        </button>
       </div>
     </div>
   );

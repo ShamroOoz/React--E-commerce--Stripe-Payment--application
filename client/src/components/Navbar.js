@@ -12,12 +12,12 @@ const Navbar = () => {
       <div className="container px-6 py-3 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
           <div>
-            <a
+            <NavLink
               className="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
-              href="/"
+              to="/"
             >
-              Brand
-            </a>
+              Stripe Shop
+            </NavLink>
           </div>
           <div className="flex md:hidden">
             <button
@@ -34,7 +34,7 @@ const Navbar = () => {
         <div
           className={`flex-col ${
             open ? "flex" : "hidden"
-          } flex text-gray-600  capitalize dark:text-gray-300 md:flex md:px-16 md:-mx-4 md:flex-row md:items-center`}
+          }  text-gray-600  capitalize dark:text-gray-300 md:flex md:px-16 md:-mx-4 md:flex-row md:items-center`}
         >
           <div className="flex flex-col lg:flex-row lg:mx-6">
             <NavLink
@@ -75,9 +75,11 @@ const Navbar = () => {
           >
             <ShoppingCartIcon className="w-5 h-5" />
 
-            <span className="absolute p-1 text-xs text-white bg-blue-500 rounded-full -right-2 -top-4">
-              {itemCount}
-            </span>
+            {itemCount > 0 && (
+              <span className="absolute p-1 text-xs text-white bg-blue-500 rounded-full -right-2 -top-4">
+                {itemCount}
+              </span>
+            )}
           </NavLink>
         </div>
       </div>

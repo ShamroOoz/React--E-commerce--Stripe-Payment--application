@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import cartReducer, { sumItems } from "./cart-reducer";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext();
 
@@ -14,14 +15,23 @@ const initialState = {
 
 const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-  const addProduct = (product) =>
-    dispatch({ type: "ADD_ITEM", payload: product });
-  const increase = (product) =>
-    dispatch({ type: "INCREASE", payload: product });
-  const decrease = (product) =>
-    dispatch({ type: "DECREASE", payload: product });
-  const removeProduct = (product) =>
-    dispatch({ type: "REMOVE_ITEM", payload: product });
+  const addProduct = (product) => {
+    toast.success("Product Added Successfully...");
+    return dispatch({ type: "ADD_ITEM", payload: product });
+  };
+  const increase = (product) => {
+    toast.success("Product Added Successfully...");
+    return dispatch({ type: "INCREASE", payload: product });
+  };
+
+  const decrease = (product) => {
+    toast.success("Product Removed... ");
+    return dispatch({ type: "DECREASE", payload: product });
+  };
+  const removeProduct = (product) => {
+    toast.success("Cart Cleared..");
+    return dispatch({ type: "REMOVE_ITEM", payload: product });
+  };
   const clearCart = () => dispatch({ type: "CLEAR" });
   const contextValues = {
     ...state,

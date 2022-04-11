@@ -7,13 +7,11 @@ import ProductsContextProvider from "./context/products-context";
 import CartContextProvider from "./context/cart-context";
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ProductsContextProvider>
-        <CartContextProvider>
-          <App />
-        </CartContextProvider>
-      </ProductsContextProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <ProductsContextProvider>
+      <CartContextProvider>
+        <App />
+      </CartContextProvider>
+    </ProductsContextProvider>
+  </BrowserRouter>
 );
