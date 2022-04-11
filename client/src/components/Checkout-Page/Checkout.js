@@ -1,13 +1,21 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../../context/cart-context";
+import { useElements, useStripe } from "@stripe/react-stripe-js";
+import { fetchFromAPI } from "../../Utils/helpers";
 
 const Checkout = () => {
   const [error, seterror] = useState("");
-
   const { cartItems } = useContext(CartContext);
+  const elements = useElements();
+  const stripe = useStripe();
 
-  const handleGuestCheckout = (e) => {
+  const handleGuestCheckout = async (e) => {
     e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
     const data = new FormData(e.target);
     let formResult = {
       name: data.get("name"),
@@ -17,9 +25,15 @@ const Checkout = () => {
     if (!Object.values(formResult).every(Boolean)) {
       return seterror("Please Fill All fileds...");
     } else seterror("");
+
     const line_items = cartItems.map((item) => {
       return {
         quantity: item.quantity,
+        adjustable_quantity: {
+          enabled: true,
+          minimum: 1,
+          maximum: 10,
+        },
         price_data: {
           currency: "usd",
           unit_amount: item.price * 100, // amount is in cents
@@ -31,7 +45,19 @@ const Checkout = () => {
         },
       };
     });
-    console.log(line_items);
+
+    try {
+      const { sessionId } = await fetchFromAPI("create-checkout-session", {
+        body: { line_items, customer_email: formResult.email },
+        method: "POST",
+      });
+
+      await stripe.redirectToCheckout({
+        sessionId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

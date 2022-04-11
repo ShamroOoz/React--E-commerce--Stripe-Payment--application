@@ -5,7 +5,7 @@ export const isInCart = (product, cartItems) => {
 const API = "http://localhost:5000";
 
 export async function fetchFromAPI(endpoint, opts) {
-  const { method, body } = { method: "POST", body: null, ...opts };
+  const { method, body } = { body: null, ...opts };
   //   const user = auth.currentUser;
   const token = 123455; //user && (await user.getIdToken());
   const res = await fetch(`${API}/${endpoint}`, {

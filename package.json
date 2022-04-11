@@ -1,5 +1,31 @@
 {
+  "name": "mern-stripe-payment",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "server.js",
+    "type" : "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShamroOoz/React--E-commerce--Stripe-Payment--application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShamroOoz/React--E-commerce--Stripe-Payment--application/issues"
+  },
+  "homepage": "https://github.com/ShamroOoz/React--E-commerce--Stripe-Payment--application#readme",
   "dependencies": {
-    "@heroicons/react": "^1.0.6"
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "stripe": "^8.216.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
   }
 }
