@@ -5,6 +5,7 @@ import stripeAPI from "./Helper/stripe.js";
 import createCheckoutSession from "./api/checkout.js";
 import webhook from "./api/webhook.js";
 import paymentIntent from "./api/paymentIntent.js";
+import coustomPaymentIntent from "./api/coustomPaymentIntent.js";
 import setupIntent from "./api/setupIntent.js";
 import getCards from "./api/getPaymentMethod.js";
 import updatePaymentIntent from "./api/updatePaymentIntent.js";
@@ -69,6 +70,8 @@ app.get("/check-promotioncode/:code", async (req, res) => {
     res.status(408).send(error.message);
   }
 });
+
+app.post("/create-custom-payment-intent", coustomPaymentIntent);
 
 app.post("/create-payment-intent", paymentIntent);
 

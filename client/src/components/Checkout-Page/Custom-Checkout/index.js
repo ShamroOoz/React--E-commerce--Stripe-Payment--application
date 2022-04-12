@@ -104,6 +104,7 @@ const CustomCheckout = () => {
           name: user?.name,
           email: user?.email,
         },
+        // return_url: "https://your-website.com/checkout/complete",
       },
     });
 
@@ -152,9 +153,7 @@ const CustomCheckout = () => {
       setError(`Payment Failed: ${payload.error.message}`);
     } else {
       setProcessing(false);
-      console.log(
-        "you need to add th succes link in the confirmCardPayment method.. "
-      );
+      naviagte("success", { replace: true, state: payload });
     }
   };
 

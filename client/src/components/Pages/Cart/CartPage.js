@@ -96,8 +96,15 @@ const CartPage = () => {
                   clearCart={clearCart}
                 />
               </div>
+              <button
+                onClick={() => navigator("/custom-checkout-element")}
+                className="block mt-4 w-full py-4 font-bold text-center text-white uppercase transition duration-200 bg-blue-600 rounded-md hover:bg-blue-400 font-heading"
+              >
+                Go to Coustom Stripe Element checkout
+              </button>
             </>
           )}
+
           <button
             onClick={() => navigator("/shop")}
             className="block mt-4 w-full py-4 font-bold text-center text-white uppercase transition duration-200 bg-blue-600 rounded-md hover:bg-blue-400 font-heading"
