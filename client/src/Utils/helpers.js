@@ -2,7 +2,9 @@ export const isInCart = (product, cartItems) => {
   return cartItems.find((item) => item.id === product.id);
 };
 
-const API = "http://localhost:5000";
+const API =
+  "https://react-e-commerce-stripe-payment-application-backend-server.vercel.app/";
+//const API = "http://localhost:5000";
 
 export async function fetchFromAPI(endpoint, opts) {
   const { method, body } = { body: null, ...opts };
