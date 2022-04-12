@@ -10,6 +10,7 @@ const cartFromStorage = localStorage.getItem("cart")
 
 const initialState = {
   cartItems: cartFromStorage,
+  promotionCodes: undefined,
   ...sumItems(cartFromStorage),
 };
 
@@ -32,6 +33,10 @@ const CartContextProvider = ({ children }) => {
     toast.success("Cart Cleared..");
     return dispatch({ type: "REMOVE_ITEM", payload: product });
   };
+  const setpromotionCodes = (code) => {
+    console.log(code);
+    return dispatch({ type: "Add_coupon", payload: code });
+  };
   const clearCart = () => dispatch({ type: "CLEAR" });
   const contextValues = {
     ...state,
@@ -40,6 +45,7 @@ const CartContextProvider = ({ children }) => {
     decrease,
     removeProduct,
     clearCart,
+    setpromotionCodes,
   };
 
   return (

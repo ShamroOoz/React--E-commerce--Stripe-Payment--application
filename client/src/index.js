@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import ProductsContextProvider from "./context/products-context";
 import CartContextProvider from "./context/cart-context";
+import UserContextProvider from "./context/user-context";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { fetchFromAPI } from "./Utils/helpers";
@@ -26,9 +27,11 @@ createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <ProductsContextProvider>
       <CartContextProvider>
-        <Elements stripe={getStripe()}>
-          <App />
-        </Elements>
+        <UserContextProvider>
+          <Elements stripe={getStripe()}>
+            <App />
+          </Elements>
+        </UserContextProvider>
       </CartContextProvider>
     </ProductsContextProvider>
   </BrowserRouter>

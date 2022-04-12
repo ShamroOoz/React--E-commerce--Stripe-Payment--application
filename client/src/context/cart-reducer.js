@@ -71,6 +71,11 @@ const cartReducer = (state, action) => {
         itemCount: 0,
         total: 0,
       };
+    case "Add_coupon":
+      return {
+        ...state,
+        promotionCodes: action.payload.coupon.id,
+      };
     default:
       return state;
   }

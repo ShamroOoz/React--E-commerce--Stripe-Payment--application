@@ -1,20 +1,26 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import stripeAPI from "./stripe.js";
+import stripeAPI from "./Helper/stripe.js";
 import createCheckoutSession from "./api/checkout.js";
-// import webhook from "./api/webhook.js";
-// import paymentIntent from "./api/paymentIntent";
-// import setupIntent from "./api/setupIntent";
-// import getCards from "./api/getPaymentMethod";
-// import updatePaymentIntent from "./api/updatePaymentIntent";
+import webhook from "./api/webhook.js";
+import paymentIntent from "./api/paymentIntent.js";
+import setupIntent from "./api/setupIntent.js";
+import getCards from "./api/getPaymentMethod.js";
+import updatePaymentIntent from "./api/updatePaymentIntent.js";
 
 const app = express();
 const port = 5000;
 
 app.use(
   express.json({
-    verify: (req, res, buffer) => (req["rawBody"] = buffer),
+    // We need the raw body to verify webhook signatures.
+    // Let's compute it only when hitting the Stripe webhook endpoint.
+    verify: function (req, res, buf) {
+      if (req.originalUrl.startsWith("/webhook")) {
+        req.rawBody = buf.toString();
+      }
+    },
   })
 );
 
@@ -37,22 +43,41 @@ app.get("/get-checkout-session", async (req, res) => {
     const session = await stripeAPI.checkout.sessions.retrieve(req.query.id, {
       expand: ["line_items"],
     });
-    const customer = await stripeAPI.customers.retrieve(session.customer);
-    console.log(customer);
+
+    if (session.customer) {
+      const customer = await stripeAPI.customers.retrieve(session.customer);
+    }
     return res.status(200).json(session);
   } catch (error) {
     console.log(error);
   }
 });
 
-// app.post("/create-payment-intent", paymentIntent);
+//get the promotion code by this methos and then apply in checkout sesssion
+app.get("/check-promotioncode/:code", async (req, res) => {
+  try {
+    const code = req.params.code;
+    const { data } = await stripeAPI.promotionCodes.list({
+      code,
+    });
 
-// app.post("/save-payment-method", validateUser, setupIntent);
+    if (data.length && data[0]?.active) {
+      return res.status(200).json({ ...data[0] });
+    }
+    throw new Error("Not a valid promotion Code");
+  } catch (error) {
+    res.status(408).send(error.message);
+  }
+});
 
-// app.get("/get-payment-methods", validateUser, getCards);
+app.post("/create-payment-intent", paymentIntent);
 
-// app.put("/update-payment-intent", validateUser, updatePaymentIntent);
+app.post("/save-payment-method", setupIntent);
 
-// app.post("/webhook", webhook);
+app.get("/get-payment-methods", getCards);
+
+app.put("/update-payment-intent", updatePaymentIntent);
+
+app.post("/webhook", webhook);
 
 app.listen(port, () => console.log("server listening on port", port));

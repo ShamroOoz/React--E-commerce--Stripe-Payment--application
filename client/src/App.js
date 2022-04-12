@@ -7,6 +7,8 @@ import Checkout from "./components/Checkout-Page/Checkout";
 import Success from "./components/Checkout-Page/stripe-checkout/Success";
 import Canceled from "./components/Checkout-Page/stripe-checkout/Canceled";
 import Layout from "./components/Layout";
+import CustomCheckout from "./components/Checkout-Page/Custom-Checkout";
+import CustomSuccess from "./components/Checkout-Page/Custom-Checkout/CustomSuccess";
 
 const App = () => {
   return (
@@ -19,6 +21,9 @@ const App = () => {
           <Route path="checkout" element={<Checkout />} />
           <Route path="success" element={<Success />} />
           <Route path="canceled" element={<Canceled />} />
+          <Route path="custom-checkout" element={<CustomCheckout />} />
+          <Route path="custom-checkout/success" element={<CustomSuccess />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "../../context/cart-context";
 import { useElements, useStripe } from "@stripe/react-stripe-js";
 import { fetchFromAPI } from "../../Utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [error, seterror] = useState("");
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, promotionCodes } = useContext(CartContext);
   const elements = useElements();
   const stripe = useStripe();
+  let navigator = useNavigate();
 
   const handleGuestCheckout = async (e) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ const Checkout = () => {
           maximum: 10,
         },
         price_data: {
-          currency: "usd",
+          currency: "sek",
           unit_amount: item.price * 100, // amount is in cents
           product_data: {
             name: item.title,
@@ -48,7 +50,7 @@ const Checkout = () => {
 
     try {
       const { sessionId } = await fetchFromAPI("create-checkout-session", {
-        body: { line_items, customer_email: formResult.email },
+        body: { line_items, customer_email: formResult.email, promotionCodes },
         method: "POST",
       });
 
@@ -92,9 +94,21 @@ const Checkout = () => {
                   placeholder="Enter Adress"
                   name="adress"
                 />
-                <button className="px-8 py-5 mt-8 font-bold text-white uppercase bg-blue-500 rounded-md md:mt-10 hover:bg-blue-700 font-heading">
-                  Pay now
-                </button>
+                <div className="flex gap-4 ">
+                  <button
+                    type="submit"
+                    className="px-8 py-5 mt-8 font-bold text-white uppercase bg-blue-500 rounded-md md:mt-10 hover:bg-blue-700 font-heading"
+                  >
+                    Pay now
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigator("/custom-checkout")}
+                    className="px-8 py-5 mt-8 font-bold text-white uppercase bg-orange-500 rounded-md md:mt-10 hover:bg-orange-700 font-heading"
+                  >
+                    Custom Checkout
+                  </button>
+                </div>
               </form>
             </div>
           </div>
