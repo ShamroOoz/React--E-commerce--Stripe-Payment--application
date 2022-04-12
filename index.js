@@ -29,7 +29,7 @@ app.use(cors({ origin: true }));
 
 // app.use(decodeJWT);
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello World! ✈ "));
 
 app.get("/config", (req, res) => {
   return res.status(200).json({
