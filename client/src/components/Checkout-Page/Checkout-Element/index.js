@@ -18,9 +18,10 @@ const CheckoutByelement = () => {
     const payload = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // return_url: "http://localhost:3000/custom-checkout-element/success",
         return_url:
-          "https://react-e-commerce-stripe-payment-application.vercel.app/success",
+          process.env.NODE_ENV === "production"
+            ? "https://react-e-commerce-stripe-payment-application.vercel.app/success"
+            : "http://localhost:3000/custom-checkout-element/success",
       },
       // Uncomment below if you only want redirect for redirect-based payments
       // redirect: 'if_required',

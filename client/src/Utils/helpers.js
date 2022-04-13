@@ -3,8 +3,9 @@ export const isInCart = (product, cartItems) => {
 };
 
 const API =
-  "https://react-e-commerce-stripe-payment-application-backend-server.vercel.app/";
-//const API = "http://localhost:5000";
+  process.env.NODE_ENV === "production"
+    ? "https://react-e-commerce-stripe-payment-application-backend-server.vercel.app"
+    : "http://localhost:5000";
 
 export async function fetchFromAPI(endpoint, opts) {
   const { method, body } = { body: null, ...opts };
