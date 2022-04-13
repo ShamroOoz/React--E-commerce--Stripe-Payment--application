@@ -11,7 +11,7 @@ import getCards from "./api/getPaymentMethod.js";
 import updatePaymentIntent from "./api/updatePaymentIntent.js";
 
 const app = express();
-const port = 5000;
+const port = 5000 || process.env.port;
 
 app.use(
   express.json({
