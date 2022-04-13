@@ -20,7 +20,7 @@ const CheckoutByelement = () => {
       confirmParams: {
         return_url:
           process.env.NODE_ENV === "production"
-            ? "https://react-e-commerce-stripe-payment-application.vercel.app/success"
+            ? "https://react-e-commerce-stripe-payment-application.vercel.app/custom-checkout-element/success"
             : "http://localhost:3000/custom-checkout-element/success",
       },
       // Uncomment below if you only want redirect for redirect-based payments
